@@ -15,17 +15,48 @@ public class ListGraph<V> implements Graph<V>{
 	@Override
 	public boolean addEdge(V fromVertex, V toVertex) {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private int existingVertex() {
-		return 0;
+                boolean a = false;
+                int pos=0;
+                for (int i=0; i<myGraph.size(); i++){
+                    if(fromVertex.equals(myGraph.get(i).get(0))){
+                        a = true;
+                        pos=i;
+                    }
+                }
+                if(!a) return false;
+                for(int i=0; i<myGraph.get(pos).size(); i++)
+                {
+                    if(toVertex.equals(myGraph.get(pos).get(i))){
+                        return false;
+                    }
+                }
+                myGraph.get(pos).add(toVertex);
+                return true;
 	}
 	
+	// Returns the index where the specified vertex is the parent vertex, -1 if
+	// it does not exist in the graph
+	private int indexOf(V toTest) {
+		for(int index = 0; index < myGraph.size(); index++) {
+			if(myGraph.get(index).equals(toTest))
+				return index;
+		}
+		return -1;
+	}
+	
+	// Adds a vertex as a parent in the graph (it will be the only element if it is
+	// a leaf
 	@Override
 	public boolean addVertex(V vertex) {
+		// the vertex must not already exist
+		if(indexOf(vertex) != -1)
+			return false;
 		
-		return false;
+		// if it doesn't | add the vertex as the leading node of the new vertex list
+		ArrayList<V> arrayToAdd = new ArrayList<V>();
+		arrayToAdd.add(vertex);
+		myGraph.add(arrayToAdd);
+		return true;
 	}
 
 	@Override
