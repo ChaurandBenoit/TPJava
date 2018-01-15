@@ -1,6 +1,7 @@
 package ex1;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ListGraph<V> implements Graph<V>{
@@ -44,8 +45,15 @@ public class ListGraph<V> implements Graph<V>{
 
 	@Override
 	public Set<V> getChildren(V vertex) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<V> s = new HashSet<V>();
+		for(ArrayList<V> tmp : this.myGraph){
+			if(tmp.get(0).equals(vertex)){
+				for(int i=1; i<tmp.size(); i++){
+					s.add(tmp.get(i));
+				}
+			}
+		}
+		return s;
 	}
 	
 	public static void main(String args[]){
