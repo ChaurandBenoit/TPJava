@@ -14,7 +14,23 @@ public class ListGraph<V> implements Graph<V>{
 	@Override
 	public boolean addEdge(V fromVertex, V toVertex) {
 		// TODO Auto-generated method stub
-		return false;
+                boolean a = false;
+                int pos=0;
+                for (int i=0; i<myGraph.size(); i++){
+                    if(fromVertex.equals(myGraph.get(i).get(0))){
+                        a = true;
+                        pos=i;
+                    }
+                }
+                if(!a) return false;
+                for(int i=0; i<myGraph.get(pos).size(); i++)
+                {
+                    if(toVertex.equals(myGraph.get(pos).get(i))){
+                        return false;
+                    }
+                }
+                myGraph.get(pos).add(toVertex);
+                return true;
 	}
 
 	private int existingVertex() {
