@@ -7,7 +7,7 @@ package lab2;
 
 /**
  *
- * @author Benoit
+ * Coucuo
  */
 public class Lab2 {
 
