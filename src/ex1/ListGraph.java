@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class ListGraph<V> implements Graph<V>{
 
-	private ArrayList<ArrayList<V>> myAdjList;
+	private ArrayList<ArrayList<V>> myGraph;
 
 	@Override
 	public boolean addEdge(Object fromVertex, Object toVertex) {
