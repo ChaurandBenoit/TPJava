@@ -42,6 +42,19 @@ public class ListGraph<V> implements Graph<V>{
 	}
 	
 	public static void main(String args[]){
-		// TODO
+		
+		ListGraph<String> myListGraph = new ListGraph<>();
+		myListGraph.addVertex("A");
+		myListGraph.addVertex("B");
+		myListGraph.addVertex("C");
+		myListGraph.addVertex("D");
+		myListGraph.addVertex("E");
+		
+		myListGraph.addEdge("A", "B");
+		myListGraph.addEdge("A", "C");
+		myListGraph.addEdge("A", "D");
+		myListGraph.addEdge("C", "E");
+
+	
 	}
 }
