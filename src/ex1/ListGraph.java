@@ -3,7 +3,7 @@ package ex1;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class ListGraph<V> implements Graph{
+public class ListGraph<V> implements Graph<V>{
 
 	private ArrayList<ArrayList<V>> myAdjList;
 
@@ -23,5 +23,9 @@ public class ListGraph<V> implements Graph{
 	public Set getChildren(Object vertex) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void main(String args[]){
+		// TODO
 	}
 }
