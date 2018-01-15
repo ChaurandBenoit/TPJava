@@ -8,19 +8,19 @@ public class ListGraph<V> implements Graph<V>{
 	private ArrayList<ArrayList<V>> myGraph;
 
 	@Override
-	public boolean addEdge(Object fromVertex, Object toVertex) {
+	public boolean addEdge(V fromVertex, V toVertex) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean addVertex(Object vertex) {
+	public boolean addVertex(V vertex) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Set getChildren(Object vertex) {
+	public Set<V> getChildren(V vertex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
