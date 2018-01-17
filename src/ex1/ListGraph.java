@@ -4,48 +4,46 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ListGraph<V> implements Graph<V>{
+public class ListGraph<V> implements Graph<V> {
 
+	// adjacency list
+	// ArrayList of ArrayList<V>
+	// the first element of each ArrayList represents the parent node
+	// the following elements represent its children in the graph (adjacent nodes)
 	private ArrayList<ArrayList<V>> myGraph;
 
+	// default constructor
 	public ListGraph() {
 		myGraph = new ArrayList<ArrayList<V>>();
-	}
-	
-	@Override
-	public boolean addEdge(V fromVertex, V toVertex) {
-		// TODO Auto-generated method stub
-                boolean a = false;
-                int pos=0;
-                for (int i=0; i<myGraph.size(); i++){
-                    if(fromVertex.equals(myGraph.get(i).get(0))){
-                        a = true;
-                        pos=i;
-                    }
-                }
-                if(!a) return false;
-                for(int i=0; i<myGraph.get(pos).size(); i++)
-                {
-                    if(toVertex.equals(myGraph.get(pos).get(i))){
-                        return false;
-                    }
-                }
-                myGraph.get(pos).add(toVertex);
-                return true;
 	}
 	
 	// Returns the index where the specified vertex is the parent vertex, -1 if
 	// it does not exist in the graph
 	private int indexOf(V toTest) {
-		for(int index = 0; index < myGraph.size(); index++) {
-			if(myGraph.get(index).equals(toTest))
+		for(int index = 0, size = myGraph.size(); index < size; index++) {
+			if(myGraph.get(index).get(0).equals(toTest))
 				return index;
 		}
 		return -1;
 	}
 	
-	// Adds a vertex as a parent in the graph (it will be the only element if it is
-	// a leaf
+	// Returns true if the specified vertex is a child of the one located at index in the Graph
+	private boolean isChild(int index, V vertex) {
+		// checks the value of index
+		if(index < 0 || index >= myGraph.size())
+			return false;
+		// number of children of the node at index
+		int childrenNb = myGraph.get(index).size() - 1;
+		if(childrenNb == 0)
+			return false;
+		for(int i = 1; i <= childrenNb; i++) {
+			if(myGraph.get(index).get(i).equals(vertex))
+				return true;
+		}
+		return false;
+	}
+
+	// Adds a vertex to the graph
 	@Override
 	public boolean addVertex(V vertex) {
 		// the vertex must not already exist
@@ -58,12 +56,29 @@ public class ListGraph<V> implements Graph<V>{
 		myGraph.add(arrayToAdd);
 		return true;
 	}
-
+	
+	// Adds an edge (arc) in the graph
+	@Override
+	public boolean addEdge(V fromVertex, V toVertex) {
+		// index of the start and end vertex
+		int startIndex = indexOf(fromVertex);
+		int endIndex = indexOf(toVertex);
+		
+		if(startIndex == -1 || endIndex == -1) 		// not in the graph
+			return false;
+		if(isChild(startIndex, toVertex))			// already has toVertex as a child
+			return false;
+		
+		myGraph.get(startIndex).add(toVertex);
+		return true;
+	}
+	
+	// Gets the children (adjacent nodes) of the specified node
 	@Override
 	public Set<V> getChildren(V vertex) {
 		Set<V> s = new HashSet<V>();
-		for(ArrayList<V> tmp : this.myGraph){
-			if(tmp.get(0).equals(vertex)){
+		for(ArrayList<V> tmp : this.myGraph) {
+			if(tmp.get(0).equals(vertex)) {
 				for(int i=1; i<tmp.size(); i++){
 					s.add(tmp.get(i));
 				}
@@ -72,7 +87,46 @@ public class ListGraph<V> implements Graph<V>{
 		return s;
 	}
 	
-	public static void main(String args[]){
-		// TODO
+	// Overridden toString - prints the graph as described in 3.
+	@Override
+	public String toString() {
+		// StringBuilder usage for efficiency (not re-allocating every time)
+		StringBuilder str = new StringBuilder("Graph G {\n");
+		for(ArrayList<V> v : myGraph) {
+			str.append("\tnode " + v.get(0) + ";\n");
+		}
+		for(ArrayList<V> v : myGraph) {
+			if(v.size() != 1) {						// we display links if the node has some
+				str.append("\t" + v.get(0) + " -> ");
+				for(int i = 1, size = v.size(); i <= size - 2; i++)
+					str.append(v.get(i) + ", ");
+					str.append(v.get(v.size() -1) + ";\n");
+			}
+		}
+		str.append("}");
+		return str.toString();
+	}
+	
+	public static void main(String args[]) {
+		Graph<Character> g = new ListGraph<Character>();
+		System.out.println((g.addVertex('A') ? "SUCCEEDED " : "FAILED ") + "TO ADD A");
+		System.out.println((g.addVertex('A') ? "SUCCEEDED " : "FAILED ") + "TO ADD A");
+		
+		System.out.println((g.addEdge('A', 'B') ? "SUCCEEDED " : "FAILED ") + "TO ADD (A,B)");
+		System.out.println((g.addVertex('B') ? "SUCCEEDED " : "FAILED ") + "TO ADD B");
+		
+		System.out.println((g.addEdge('A', 'B') ? "SUCCEEDED " : "FAILED ") + "TO ADD (A,B)");
+		System.out.println((g.addEdge('A', 'B') ? "SUCCEEDED " : "FAILED ") + "TO ADD (A,B)");
+		System.out.println((g.addEdge('A', 'B') ? "SUCCEEDED " : "FAILED ") + "TO ADD (A,B)");
+		
+		System.out.println((g.addVertex('C') ? "SUCCEEDED " : "FAILED ") + "TO ADD C");
+		System.out.println((g.addEdge('B', 'C') ? "SUCCEEDED " : "FAILED ") + "TO ADD (B,C)");
+		System.out.println((g.addEdge('C', 'B') ? "SUCCEEDED " : "FAILED ") + "TO ADD (C,B)");
+		System.out.println((g.addEdge('A', 'C') ? "SUCCEEDED " : "FAILED ") + "TO ADD (A,C)");
+		
+		System.out.println();
+		
+		// displays the graph
+		System.out.println(g);
 	}
 }
