@@ -92,7 +92,7 @@ public class ListGraph<V> implements Graph<V> {
 	@Override
 	public String toString() {
 		// StringBuilder usage for efficiency (not re-allocating every time)
-		StringBuilder str = new StringBuilder("Graph G {\n");
+		StringBuilder str = new StringBuilder("Directed Graph G {\n");
 		for(List<V> v : myGraph) {
 			str.append("\tnode " + v.get(0) + ";\n");
 		}
