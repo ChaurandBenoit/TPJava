@@ -2,8 +2,10 @@ package ex1;
 
 import java.util.Set;
 
-// Graph interface - parameterized by the type V (representing the type of a vertex)
-// All methods are public abstract by default
+/* Graph interface
+ * Parameterized by the type V (representing the type of a vertex)
+ * All methods are public abstract by default
+ */
 public interface Graph<V> {
 	
 	// adds an edge to the graph

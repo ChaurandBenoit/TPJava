@@ -1,5 +1,6 @@
 package ex1;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,14 +8,14 @@ import java.util.Set;
 public class ListGraph<V> implements Graph<V> {
 
 	// adjacency list
-	// ArrayList of ArrayList<V>
-	// the first element of each ArrayList represents the parent node
+	// List of List<V>
+	// the first element of each list represents the parent node
 	// the following elements represent its children in the graph (adjacent nodes)
-	private ArrayList<ArrayList<V>> myGraph;
+	private List<List<V>> myGraph;
 
 	// default constructor
 	public ListGraph() {
-		myGraph = new ArrayList<ArrayList<V>>();
+		myGraph = new ArrayList<List<V>>();
 	}
 	
 	// Returns the index where the specified vertex is the parent vertex, -1 if
@@ -77,7 +78,7 @@ public class ListGraph<V> implements Graph<V> {
 	@Override
 	public Set<V> getChildren(V vertex) {
 		Set<V> s = new HashSet<V>();
-		for(ArrayList<V> tmp : this.myGraph) {
+		for(List<V> tmp : this.myGraph) {
 			if(tmp.get(0).equals(vertex)) {
 				for(int i=1; i<tmp.size(); i++){
 					s.add(tmp.get(i));
@@ -92,10 +93,10 @@ public class ListGraph<V> implements Graph<V> {
 	public String toString() {
 		// StringBuilder usage for efficiency (not re-allocating every time)
 		StringBuilder str = new StringBuilder("Graph G {\n");
-		for(ArrayList<V> v : myGraph) {
+		for(List<V> v : myGraph) {
 			str.append("\tnode " + v.get(0) + ";\n");
 		}
-		for(ArrayList<V> v : myGraph) {
+		for(List<V> v : myGraph) {
 			if(v.size() != 1) {						// we display links if the node has some
 				str.append("\t" + v.get(0) + " -> ");
 				for(int i = 1, size = v.size(); i <= size - 2; i++)
@@ -109,6 +110,7 @@ public class ListGraph<V> implements Graph<V> {
 	
 	public static void main(String args[]) {
 		Graph<Character> g = new ListGraph<Character>();
+		
 		System.out.println((g.addVertex('A') ? "SUCCEEDED " : "FAILED ") + "TO ADD A");
 		System.out.println((g.addVertex('A') ? "SUCCEEDED " : "FAILED ") + "TO ADD A");
 		
