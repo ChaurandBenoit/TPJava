@@ -1,24 +1,39 @@
 package ex3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 // only imports the Graph interface from ex1
 import ex1.Graph;
 
 /* AbstractListGraph abstract class
- * gathers common characteristics of directed and undirected graphs
+ * it's the exact copy of ex1.ListGraph => it implements a directed graph by default
  */
 public abstract class AbstractListGraph<V> implements Graph<V> {
 
 	// adjacency list
-	private List<List<V>> myGraph;
+	protected List<List<V>> myGraph;
 	
 	// default constructor
 	protected AbstractListGraph() {
 		myGraph = new ArrayList<List<V>>();
+	}
+	
+	// Question 3.
+	// added method (and new toString() based on that method)
+	protected abstract String getDotType();
+	public String toString() {
+		return getDotType();
+	}
+	
+	// Question 4.
+	// gets unique adjacent nodes of a vertex (asked to be OVERRIDDEN only in UndirectedListGraph
+	// so we declare it implementing the directed behavior here)
+	protected Map<V, Set<V>> getUniqueAdjacencies() {
+		Map<V, Set<V>> result = new HashMap<V, Set<V>>(myGraph.size());
+		for(List<V> vList : myGraph) {
+			result.put(vList.get(0), this.getChildren(vList.get(0)));
+		}
+		return result;
 	}
 	
 	// Returns the index where the specified vertex is the parent vertex, -1 if
@@ -89,25 +104,5 @@ public abstract class AbstractListGraph<V> implements Graph<V> {
 			}
 		}
 		return s;
-	}
-	
-	// Overridden toString - prints the graph as described in 3.
-	@Override
-	public String toString() {
-		// StringBuilder usage for efficiency (not re-allocating every time)
-		StringBuilder str = new StringBuilder("Directed Graph G {\n");
-		for(List<V> v : myGraph) {
-			str.append("\tnode " + v.get(0) + ";\n");
-		}
-		for(List<V> v : myGraph) {
-			if(v.size() != 1) {						// we display links if the node has some
-				str.append("\t" + v.get(0) + " -> ");
-				for(int i = 1, size = v.size(); i <= size - 2; i++)
-					str.append(v.get(i) + ", ");
-					str.append(v.get(v.size() -1) + ";\n");
-			}
-		}
-		str.append("}");
-		return str.toString();
 	}
 }

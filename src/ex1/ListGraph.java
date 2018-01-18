@@ -93,15 +93,23 @@ public class ListGraph<V> implements Graph<V> {
 	public String toString() {
 		// StringBuilder usage for efficiency (not re-allocating every time)
 		StringBuilder str = new StringBuilder("Directed Graph G {\n");
+		
+		// children set
+		List<V> children = null;
+		int size = 0;
+		
 		for(List<V> v : myGraph) {
 			str.append("\tnode " + v.get(0) + ";\n");
 		}
 		for(List<V> v : myGraph) {
-			if(v.size() != 1) {						// we display links if the node has some
+			children = new ArrayList<V>(getChildren(v.get(0)));
+			size = children.size();
+			
+			if(size != 0) {
 				str.append("\t" + v.get(0) + " -> ");
-				for(int i = 1, size = v.size(); i <= size - 2; i++)
-					str.append(v.get(i) + ", ");
-					str.append(v.get(v.size() -1) + ";\n");
+				for(int i = 0; i < size -1; i++)
+					str.append(children.get(i) + ", ");
+					str.append(children.get(size -1) + ";\n");
 			}
 		}
 		str.append("}");
