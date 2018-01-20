@@ -105,6 +105,7 @@ public abstract class AbstractListGraph<V> implements Graph<V> {
 		}
 		return s;
 	}
+
          //exo 4 q5 : Add a Set of vertices and returns the Set of vertices that has not been added because they are already in the graph
         @Override
         public Set<V> addVertices(Set<V> vertices){
@@ -116,4 +117,10 @@ public abstract class AbstractListGraph<V> implements Graph<V> {
             }
             return s; // We return the vertex that allready exists
         }
+	
+	// Ex5 Question 4.
+	public String edgeString(V fromVertex, V toVertex){		
+		return (fromVertex + " -- " + toVertex); 
+	}
+
 }
