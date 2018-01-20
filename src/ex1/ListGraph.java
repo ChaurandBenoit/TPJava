@@ -3,6 +3,7 @@ package ex1;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class ListGraph<V> implements Graph<V> {
@@ -11,7 +12,7 @@ public class ListGraph<V> implements Graph<V> {
 	// List of List<V>
 	// the first element of each list represents the parent node
 	// the following elements represent its children in the graph (adjacent nodes)
-	private List<List<V>> myGraph;
+	public List<List<V>> myGraph;
 
 	// default constructor
 	public ListGraph() {
@@ -88,6 +89,19 @@ public class ListGraph<V> implements Graph<V> {
 		return s;
 	}
 	
+        //exo 4 q5 : Add a Set of vertices and returns the Set of vertices that has not been added because they are already in the graph
+        @Override
+        public Set<V> addVertices(Set<V> vertices){
+            Iterator<V> it = vertices.iterator();
+            Set<V> s = new HashSet<V>();
+            while(it.hasNext()){ //we look in the graph if the vertices already exists
+                V temp=it.next();
+                if( ! addVertex(temp)) s.add(temp); // We add the vertex , if it allready exists we add it in the new Set
+            }
+            return s; // We return the vertex that allready exists
+        }
+        
+        
 	// Overridden toString - prints the graph as described in 3.
 	@Override
 	public String toString() {

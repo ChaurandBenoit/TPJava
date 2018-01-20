@@ -14,5 +14,6 @@ public interface Graph<V> {
 	boolean addVertex(V vertex);
 	// gets the children vertex of the specified vertex in the graph
 	Set<V> getChildren(V vertex);
-        
+        // Add a Set of vertices and returns the Set of vertices that has not been added because they are already in the graph
+        Set<V> addVertices(Set<V> vertices);
 }

@@ -105,4 +105,15 @@ public abstract class AbstractListGraph<V> implements Graph<V> {
 		}
 		return s;
 	}
+         //exo 4 q5 : Add a Set of vertices and returns the Set of vertices that has not been added because they are already in the graph
+        @Override
+        public Set<V> addVertices(Set<V> vertices){
+            Iterator<V> it = vertices.iterator();
+            Set<V> s = new HashSet<V>();
+            while(it.hasNext()){ //we look in the graph if the vertices already exists
+                V temp=it.next();
+                if( ! addVertex(temp)) s.add(temp); // We add the vertex , if it allready exists we add it in the new Set
+            }
+            return s; // We return the vertex that allready exists
+        }
 }
