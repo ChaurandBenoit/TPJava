@@ -1,12 +1,15 @@
 package ex3;
 
 import ex1.Graph;
+import ex5.*;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Graph<Character> dig = new DirectedListGraph<Character>();
 		Graph<Character> ung = new UndirectedListGraph<Character>();
+		WeightedListGraph<Character, Integer> wdig = new WeightedListGraph<>();
+
 		
 		/*****  DIRECTED GRAPH *****/
 		
@@ -45,6 +48,25 @@ public class Main {
 		ung.addEdge('E', 'G');
 		
 		System.out.println(ung);
+		
+		/*****  WEIGHTED DIRECTED GRAPH *****/
+		
+		wdig.addVertex('A');
+		wdig.addVertex('B');
+		wdig.addVertex('C');
+		wdig.addVertex('D');
+		wdig.addVertex('E');
+		wdig.addVertex('F');
+		wdig.addVertex('G');
+		
+		wdig.addEdge('A', 'B', 1);
+		wdig.addEdge('A', 'C', 2);
+		wdig.addEdge('B', 'D', 3);
+		wdig.addEdge('C', 'E', 4);
+		wdig.addEdge('C', 'F', 5);
+		wdig.addEdge('E', 'G', 6);
+		
+		System.out.println(wdig);
 	}
 
 }

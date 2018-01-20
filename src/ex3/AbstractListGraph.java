@@ -105,4 +105,9 @@ public abstract class AbstractListGraph<V> implements Graph<V> {
 		}
 		return s;
 	}
+	
+	// Ex5 Question 4.
+	public String edgeString(V fromVertex, V toVertex){		
+		return (fromVertex + " -- " + toVertex); 
+	}
 }
