@@ -1,6 +1,5 @@
 package ex5;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,7 @@ public abstract class AbstractWeightedListGraph<V, E> extends AbstractListGraph<
 		 * We need to override the equals() and hashCode() methods
 		 * because they are used by the HashMap.get() default function.
 		 */
+		@SuppressWarnings("unchecked")
 		@Override
 		public boolean equals(Object o){
 			if(o.getClass() != this.getClass()) return false;
