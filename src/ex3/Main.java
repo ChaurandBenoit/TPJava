@@ -1,7 +1,11 @@
 package ex3;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import ex1.Graph;
 import ex4.ColoredWord;
+import ex4.Word;
 import ex5.*;
 
 public class Main {
@@ -10,7 +14,6 @@ public class Main {
 		Graph<Character> dig = new DirectedListGraph<Character>();
 		Graph<Character> ung = new UndirectedListGraph<Character>();
 		WeightedListGraph<Character, Integer> wdig = new WeightedListGraph<>();
-		Graph<ColoredWord> dicg = new DirectedListGraph<ColoredWord>();
 
 		
 		/*****  DIRECTED GRAPH *****/
@@ -70,26 +73,44 @@ public class Main {
 		
 		System.out.println(wdig);
 		
-		/*****  DIRECTED COLORED GRAPH *****/
+		/*****  Colored Graph Tests *****/
 		
+		Graph<Word> dicg = new DirectedListGraph<Word>();
+		Graph<ColoredWord> dicwg = new DirectedListGraph<ColoredWord>();
+
+		//Create words and coloured words
+		Word w1 = new Word("Lab");
+		Word w2 = new Word("Java");
+		Word w3 = new Word("Week2");
 		ColoredWord a_red = new ColoredWord("A", ColoredWord.Color.RED);
 		ColoredWord b_blue = new ColoredWord("B", ColoredWord.Color.BLUE);
 		ColoredWord c_green = new ColoredWord("C", ColoredWord.Color.GREEN);
-		ColoredWord d_turquoise = new ColoredWord("D", ColoredWord.Color.TURQUOISE);
-		ColoredWord e_yellow = new ColoredWord("E", ColoredWord.Color.YELLOW);
 		
-		dicg.addVertex(a_red);
-		dicg.addVertex(b_blue);
-		dicg.addVertex(c_green);
-		dicg.addVertex(d_turquoise);
-		dicg.addVertex(e_yellow);
-		
-		dicg.addEdge(a_red, b_blue);
-		dicg.addEdge(a_red, c_green);
-		dicg.addEdge(b_blue, d_turquoise);
-		dicg.addEdge(c_green, e_yellow);
-		
+		//Fill the Word set
+		Set<Word> myWordSet = new HashSet<>();
+		myWordSet.add(w1);
+		myWordSet.add(w2);
+		myWordSet.add(w3);
+		dicg.addVertices(myWordSet);
+		//Add the edges
+		dicg.addEdge(w1, w2);
+		dicg.addEdge(w1, w3);
+		dicg.addEdge(w2, w3);
+		//Print the graph
 		System.out.println(dicg);
+		
+		//Fill the ColoredWord set
+		Set<ColoredWord> myColoredWordSet = new HashSet<>();
+		myColoredWordSet.add(a_red);
+		myColoredWordSet.add(b_blue);
+		myColoredWordSet.add(c_green);
+		dicwg.addVertices(myColoredWordSet);
+		//Add the edges
+		dicwg.addEdge(a_red, b_blue);
+		dicwg.addEdge(a_red, c_green);
+		dicwg.addEdge(b_blue, c_green);
+		//Print the graph
+		System.out.println(dicwg);
 	}
 
 }
